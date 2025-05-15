@@ -58,4 +58,14 @@ public class UserController {
         String response = paymentService.makePayment(invoiceId, amount, paymentMethod);
         return ResponseEntity.ok(response);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        try {
+            User user = userService.updateUser(id, updatedUser);
+            return ResponseEntity.ok(user);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

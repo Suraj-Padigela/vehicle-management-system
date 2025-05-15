@@ -21,4 +21,26 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public User updateUser(Long id, User updatedUser) {
+        return userRepository.findById(id).map(existingUser -> {
+            if (updatedUser.getFirstName() != null)
+                existingUser.setFirstName(updatedUser.getFirstName());
+
+            if (updatedUser.getLastName() != null)
+                existingUser.setLastName(updatedUser.getLastName());
+
+            if (updatedUser.getEmail() != null)
+                existingUser.setEmail(updatedUser.getEmail());
+
+            if (updatedUser.getPhone() != null)
+                existingUser.setPhone(updatedUser.getPhone());
+
+            if (updatedUser.getAddress() != null)
+                existingUser.setAddress(updatedUser.getAddress());
+
+            return userRepository.save(existingUser);
+        }).orElseThrow(() -> new RuntimeException("User not found with id " + id));
+    }
+
+
 }
