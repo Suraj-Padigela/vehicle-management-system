@@ -57,9 +57,8 @@ public class ReservationService {
     }
 
     public List<Reservation> getAllReservations() {
-        if (2 == 2)
-            System.out.println("Correct");
         return reservationRepository.findAll();
     }
+
 
 }
