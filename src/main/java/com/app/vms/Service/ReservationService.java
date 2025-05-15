@@ -56,8 +56,6 @@ public class ReservationService {
         return reservationRepository.findByUser(user);
     }
 
-    public List<Reservation> getAllReservations() {
-        return reservationRepository.findAll();
-    }
+
 
 }
