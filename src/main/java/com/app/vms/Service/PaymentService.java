@@ -44,5 +44,23 @@ public class PaymentService {
         return "Invoice not found or already paid.";
     }
 
+    public String revertPayment(Long paymentId) {
+        Optional<Payment> paymentOpt = paymentRepository.findById(paymentId);
 
+        if (paymentOpt.isPresent()) {
+            Payment payment = paymentOpt.get();
+            Invoice invoice = payment.getInvoice();
+
+            paymentRepository.delete(payment);
+
+            if (invoice != null && invoice.isPaid()) {
+                invoice.setPaid(false);
+                invoiceRepository.save(invoice);
+            }
+
+            return "Payment reverted successfully for Payment ID: " + paymentId;
+        }
+
+        return "Payment not found.";
+    }
 }
